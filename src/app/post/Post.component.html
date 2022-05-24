@@ -1,0 +1,74 @@
+<div class="container">
+  <div style="height: 90px;"></div>
+  <div class="row">
+    <ngb-toast *ngIf="show" [header]="message.title" [autohide]="false" >
+      {{message.body}}
+    </ngb-toast>
+  </div>
+  <a routerLink="/Auth">   Salir  </a> -
+  <a routerLink="/Users">   Users  </a>
+
+  <div class="reglist" *ngIf="posts">
+    <p>Tener en cuenta que la accion de new y de edit , es un formulario al final de la pagina</p>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>userId</th>
+          <th>title</th>
+          <th>body</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of posts; let i = index">
+          <th>{{ item.id }}</th>
+          <td>{{ item.userId }}</td>
+          <td>{{ item.title}}</td>
+          <td>{{ item.body }}</td>
+          <td>
+            <button type="button" class="btn btn-info" (click)="onEdit(item.id)">Edit</button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-danger" (click)="onDelete(item.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-right">
+      <button type="submit" class="btn btn-primary" (click)="onNew()">New</button>
+    </div>
+  </div>
+  <br>
+  <div class="regentry" *ngIf="showNew">
+    <form (ngSubmit)="onSave()">
+      <div class="form-group row">
+        <label for="login-input" class="col-2 col-form-label">UserId</label>
+        <div class="col-10">
+          <input class="form-control" type="number" [(ngModel)]="regModel.userId" name="userId">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="email-input" class="col-2 col-form-label">title</label>
+        <div class="col-10">
+          <input class="form-control" type="text" [(ngModel)]="regModel.title" name="title">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="name-input" class="col-2 col-form-label">Body</label>
+        <div class="col-10">
+          <input class="form-control" type="text" [(ngModel)]="regModel.body" name="body">
+        </div>
+      </div>
+
+
+
+
+
+      <button type="submit" class="btn btn-success">{{submitType}}</button>
+      <button type="submit" class="btn btn-primary" (click)="onCancel()">Cancel</button>
+    </form>
+  </div>
+</div>
+
